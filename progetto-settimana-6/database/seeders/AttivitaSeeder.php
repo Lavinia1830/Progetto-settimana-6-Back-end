@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Attivita;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Attivita;
 
 class AttivitaSeeder extends Seeder
 {

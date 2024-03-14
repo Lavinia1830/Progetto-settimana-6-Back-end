@@ -18,4 +18,3 @@
         @endif
     </ul>
 @endsection
-
