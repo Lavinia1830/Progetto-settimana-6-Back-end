@@ -9,7 +9,7 @@ use App\Models\Progetto;
 use App\Http\Requests\UpdateProgettoRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 
 class ProgettoController extends Controller
 {
