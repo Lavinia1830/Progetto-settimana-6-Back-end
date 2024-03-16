@@ -16,4 +16,5 @@ class ProgettoSeeder extends Seeder
     {
         Progetto::factory(5)->create();
     }
+    
 }
