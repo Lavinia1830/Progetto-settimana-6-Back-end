@@ -18,8 +18,14 @@ class ProgettoController extends Controller
      */
     public function index()
     {
-        $progettos = Progetto::orderBy('id');
-        return view('progettos', ['progettos' => $progettos->get()]);
+        /* $progettos = Progetto::orderBy('id');
+        return view('progettos', ['progettos' => $progettos->get()]); */
+        //return Progetto::get();
+        //return Auth::user();
+        $progettos = Progetto::where('user_id', Auth::user()->id)
+                      ->orderBy('id')
+                      ->get();
+        return view('progettos', ['progettos' => $progettos]);
     }
 
     /**
@@ -27,7 +33,7 @@ class ProgettoController extends Controller
      */
     public function create()
     {
-        return view('createProgetto', ['title' => 'Add Progetto']);
+        return view('createProgetto');
     }
 
     /**
@@ -45,7 +51,6 @@ class ProgettoController extends Controller
             'state' => 'required|string',
         ]);
 
-        // Ottieni un id utente casuale solo se esiste almeno un utente nel database
         
 
         try {
@@ -62,7 +67,8 @@ class ProgettoController extends Controller
                 'updated_at' => now(),
             ]);
         
-            return $progetto ? 'Progetto Creato' : 'Progetto non trovato!!!';
+            //return $progetto ? 'Progetto Creato' : 'Progetto non trovato!!!';
+            return redirect()->action([ProgettoController::class, 'index']);
         } catch (\Exception $e) {
             // Gestione degli errori generici
             return response()->json(['error' => 'Qualcosa è andato storto'], 500);
@@ -75,7 +81,7 @@ class ProgettoController extends Controller
      */
     public function show(Progetto $progetto)
     {
-        return view('progettodetail', ['progettos' => $progetto]);
+        return view('progettodetail', ['progetto' => $progetto]);
     }
 
     /**
@@ -83,10 +89,11 @@ class ProgettoController extends Controller
      */
     public function edit(Progetto $progetto)
     {
-        if($progetto->user_id != Auth::user()->id){ //tramite Auth accedo sempre in qualunque punto in qualunque posto della mia App all'utente loggato
+        /* if($progetto->user_id != Auth::user()->id){ //tramite Auth accedo sempre in qualunque punto in qualunque posto della mia App all'utente loggato
             abort(401); //401 non autorizzato (pagina)
         }
-        return $progetto;
+        return $progetto; */
+        return view('editProgetto', ['progetto' => $progetto]);
     }
 
     /**
@@ -94,7 +101,14 @@ class ProgettoController extends Controller
      */
     public function update(UpdateProgettoRequest $request, Progetto $progetto)
     {
-        //
+        $progetto['name'] = $request->name;
+        $progetto['description'] = $request->description;
+        $progetto['type'] = $request->type;
+        $progetto['language'] = $request->language;
+        $progetto['state'] = $request->state;
+
+        $progetto->update();
+        return redirect('/progettos');
     }
 
     /**

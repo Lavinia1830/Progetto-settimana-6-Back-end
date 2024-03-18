@@ -1,24 +1,52 @@
-@extends('templates.layout')
-@section('title', 'New Progetto')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Create Progetto Page') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <form method="post" action="/progettos">
-        @csrf
-        <div class="mb-3">
-            <input type="text" name="name" class="form-control" placeholder="Name...">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <form method="post" action="/progettos">
+                        @csrf
+                        <div class="mb-3">
+                            <input type="text" name="name" class="form-control" placeholder="Name...">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="description" class="form-control" placeholder="Description...">        
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="type">
+                                <option selected>Selected Progetto type</option>
+                                <option value="Front-End">Front-End</option>
+                                <option value="Back-End">Back-End</option>
+                                <option value="Full-Stack">Full-Stack</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="language">
+                                <option selected>Selected Progetto language</option>
+                                <option value="Javascript/Node">Javascript/Node</option>
+                                <option value="Laravel/Blade">Laravel/Blade</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="state">
+                                <option selected>Selected Progetto state</option>
+                                <option value="start">Start</option>
+                                <option value="complete">Complete</option>
+                                <option value="end">End</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-dark d-block text-black">Add Project</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <input type="text" name="description" class="form-control" placeholder="Description...">        
-        </div>
-        <div class="mb-3">
-            <input type="text" name="type" class="form-control" placeholder="Type...">        
-        </div>
-        <div class="mb-3">
-            <input type="text" name="language" class="form-control" placeholder="Language...">        
-        </div>
-        <div class="mb-3">
-            <input type="text" name="state" class="form-control" placeholder="State...">        
-        </div>
-        <button type="submit" class="btn btn-dark">Add Progetto</button>
-    </form>
-@endsection
+    </div>
+</x-app-layout>
