@@ -46,14 +46,9 @@ class ProgettoController extends Controller
         ]);
 
         // Ottieni un id utente casuale solo se esiste almeno un utente nel database
-        $randomUserId = User::get()->random()->id;
-
-        if (!$randomUserId) {
-            return 'Nessun utente trovato!!!';
-        }
+        
 
         try {
-        
             // Creazione del progetto
             $progetto = Progetto::create([
                 'name' => $validatedData['name'],
@@ -61,10 +56,10 @@ class ProgettoController extends Controller
                 'type' => $validatedData['type'],
                 'language' => $validatedData['language'],
                 'state' => $validatedData['state'],
-                'user_id' => User::get()->random()->id,
+                'user_id' => Auth::id(), // Ottenere l'ID dell'utente autenticato
                 'attivita_id' => Attivita::get()->random()->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         
             return $progetto ? 'Progetto Creato' : 'Progetto non trovato!!!';
